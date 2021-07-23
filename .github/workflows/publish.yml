@@ -17,9 +17,10 @@ jobs:
 
       - name: Build, pack and publish
         id: publish_nuget
-        uses: rohith/publish-nuget@v2
+        uses: brandedoutcast/publish-nuget@v2.5.5
         with:
           PROJECT_FILE_PATH: src/Fluent.ConstructorAssertions/Fluent.ConstructorAssertions.csproj
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          TAG_COMMIT: false
           INCLUDE_SYMBOLS: true
