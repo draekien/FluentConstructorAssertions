@@ -1,9 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>9</LangVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>FluentConstructorAssertions</Title>
+        <Authors>William Pei</Authors>
+        <Description>Fluent Constructor Assertions is a Fluent API for testing constructors in C#. The goal of this library is to make testing all those pesky `ArgumentNullExceptions` being thrown around when instantiating classes just a bit easier and less time intensive.</Description>
+        <Copyright>William Pei</Copyright>
+        <PackageProjectUrl>https://github.com/draekien/FluentConstructorAssertions</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/draekien/FluentConstructorAssertions</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Company>William Pei</Company>
+        <Product>FluentConstructorAssertions</Product>
+        <NeutralLanguage>en-AU</NeutralLanguage>
+        <IncludeSymbols>True</IncludeSymbols>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageVersion>1.0.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
