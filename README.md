@@ -18,11 +18,11 @@ Fluent Constructor Assertions is a Fluent API for testing constructors in C#. Th
 
 ### Installing the package
 
-Install the `FluentConstructorAssertions` package from nuget using Nuget Package Manager or via the console.
+Install the `Fluent.ConstructorAssertions` package from nuget using Nuget Package Manager or via the console.
 
 ```ps
-# Install the FluentConstructorAssertions package to the project named MyProject
-Install-Package FluentConstructorAssertions -ProjectName MyProject
+# Install the Fluent.ConstructorAssertions package to the project named MyProject
+Install-Package Fluent.ConstructorAssertions -ProjectName MyProject
 ```
 
 ### Basic example
