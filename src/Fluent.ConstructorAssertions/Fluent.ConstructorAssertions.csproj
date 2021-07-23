@@ -16,6 +16,7 @@
         <Product>FluentConstructorAssertions</Product>
         <NeutralLanguage>en-AU</NeutralLanguage>
         <IncludeSymbols>True</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageVersion>1.0.0</PackageVersion>
     </PropertyGroup>
