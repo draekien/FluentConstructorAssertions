@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Fluent.ConstructorAssertions.Core\Fluent.ConstructorAssertions.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="FluentAssertions" Version="5.10.3" />
       <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
     </ItemGroup>

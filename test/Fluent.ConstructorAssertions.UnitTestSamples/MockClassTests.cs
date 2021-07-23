@@ -20,7 +20,7 @@ namespace Fluent.ConstructorAssertions.UnitTests
         }
 
         [Fact]
-        public void Test1()
+        public void GivenNullArgs_WhenInstantiatingMockClass_ThenThrowArgumentNullException()
         {
             ForConstructorOf<MockClass>
                 .WithArgTypes(typeof(int?), typeof(string))
