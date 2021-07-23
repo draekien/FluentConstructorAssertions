@@ -10,15 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
       - name: Verify commit exists on main
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
           git branch --remote --contains | grep origin/main
 
-      - name: build, pack and publish
-        uses: brandedoutcast/publish-nuget@v2.5.5
-        with:
-          PROJECT_FILE_PATH: src/Fluent.ConstructorAssertions/Fluent.ConstructorAssertions.csproj
-          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          TAG_COMMIT: false
+      - name: Set VERSION variable from tag
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release /p:Version=${VERSION}
+
+      - name: Pack
+        run: dotnet pack --configuration Release --include-symbols /p:SymbolPackageFormat=snupkg /p:Version=${VERSION} --no-build --output .
+
+      - name: Push
+        run: dotnet nuget push Fluent.ConstructorAssertions.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
