@@ -15,12 +15,10 @@ jobs:
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
           git branch --remote --contains | grep origin/main
 
-      - name: Build, pack and publish
-        id: publish_nuget
+      - name: build, pack and publish
         uses: brandedoutcast/publish-nuget@v2.5.5
         with:
           PROJECT_FILE_PATH: src/Fluent.ConstructorAssertions/Fluent.ConstructorAssertions.csproj
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           TAG_COMMIT: false
-          INCLUDE_SYMBOLS: true
