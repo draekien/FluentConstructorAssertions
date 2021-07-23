@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Fluent.ConstructorAssertions.TestCases
 {
-    public class SuccessTestCase<T> : TestCase<T> where T : class
+    internal class SuccessTestCase<T> : TestCase<T> where T : class
     {
         /// <inheritdoc />
         internal SuccessTestCase(ConstructorInfo constructor, string? because, object?[] args)

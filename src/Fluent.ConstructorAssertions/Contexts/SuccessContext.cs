@@ -1,5 +1,6 @@
 ﻿namespace Fluent.ConstructorAssertions.Contexts
 {
+    /// <inheritdoc />
     public sealed class SuccessContext<T> : ExpectedResultContext<T> where T : class
     {
         internal string? Because { get; }

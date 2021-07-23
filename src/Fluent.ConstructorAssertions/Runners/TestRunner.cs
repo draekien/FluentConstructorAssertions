@@ -5,11 +5,15 @@ using FluentAssertions;
 
 namespace Fluent.ConstructorAssertions.Runners
 {
-    public sealed class TestRunner<T> where T : class
+    /// <summary>
+    /// The class responsible for running the tests.
+    /// </summary>
+    /// <typeparam name="TClass">The class with the constructor to test.</typeparam>
+    public sealed class TestRunner<TClass> where TClass : class
     {
-        private readonly List<TestCase<T>> _testCases = new List<TestCase<T>>();
+        private readonly List<TestCase<TClass>> _testCases = new();
 
-        internal TestRunner(ConstructorArgumentContext<T> context)
+        internal TestRunner(ConstructorArgumentContext<TClass> context)
         {
             if (context.ExceptionContext != null)
                 _testCases.AddRange(context.ExceptionContext.TestContext.TestCases);
@@ -18,6 +22,9 @@ namespace Fluent.ConstructorAssertions.Runners
                 _testCases.AddRange(context.SuccessContext.TestContext.TestCases);
         }
 
+        /// <summary>
+        /// Executes the registered test cases from the context and asserts that all scenarios are true.
+        /// </summary>
         public void BeTrue()
         {
             List<string> errorContext = new();
@@ -27,13 +34,13 @@ namespace Fluent.ConstructorAssertions.Runners
 
         private void ExecuteTestCases(ICollection<string> errors)
         {
-            foreach (TestCase<T> testCase in _testCases)
+            foreach (TestCase<TClass> testCase in _testCases)
             {
                 ExecuteTestCase(errors, testCase);
             }
         }
 
-        private static void ExecuteTestCase(ICollection<string> errorContext, TestCase<T> testCase)
+        private static void ExecuteTestCase(ICollection<string> errorContext, TestCase<TClass> testCase)
         {
             string error = testCase.Execute();
 

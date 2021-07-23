@@ -4,20 +4,25 @@ using Fluent.ConstructorAssertions.TestCases;
 
 namespace Fluent.ConstructorAssertions.Contexts
 {
-    public sealed class ConstructorArgumentContext<T> where T : class
+    /// <summary>
+    /// The context that handles creation of test cases based on the provided constructor arguments and the expected
+    /// test results.
+    /// </summary>
+    /// <typeparam name="TClass">The class with the constructor to test.</typeparam>
+    public sealed class ConstructorArgumentContext<TClass> where TClass : class
     {
-        internal ExceptionContext<T>? ExceptionContext { get; }
-        internal SuccessContext<T>? SuccessContext { get; }
+        internal ExceptionContext<TClass>? ExceptionContext { get; }
+        internal SuccessContext<TClass>? SuccessContext { get; }
 
-        internal ConstructorArgumentContext(ExpectedResultContext<T> expectedResultContext, params object?[] args)
+        internal ConstructorArgumentContext(ExpectedResultContext<TClass> expectedResultContext, params object?[] args)
         {
             switch (expectedResultContext)
             {
-                case ExceptionContext<T> exceptionContext:
+                case ExceptionContext<TClass> exceptionContext:
                 {
                     ExceptionContext = exceptionContext;
 
-                    TestCase<T> testCase = new FailTestCase<T>(
+                    TestCase<TClass> testCase = new FailTestCase<TClass>(
                         exceptionContext.TestContext.Constructor,
                         exceptionContext.Because,
                         exceptionContext.ExceptionType,
@@ -28,11 +33,11 @@ namespace Fluent.ConstructorAssertions.Contexts
                     break;
                 }
 
-                case SuccessContext<T> successContext:
+                case SuccessContext<TClass> successContext:
                 {
                     SuccessContext = successContext;
 
-                    TestCase<T> testCase = new SuccessTestCase<T>(
+                    TestCase<TClass> testCase = new SuccessTestCase<TClass>(
                         successContext.TestContext.Constructor,
                         successContext.Because,
                         args
@@ -44,8 +49,16 @@ namespace Fluent.ConstructorAssertions.Contexts
             }
         }
 
-        public TestContext<T> And => (ExceptionContext?.TestContext ?? SuccessContext?.TestContext) ?? throw new InvalidOperationException();
+        /// <summary>
+        /// The chaining API call to add additional scenarios to the Test Context.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">No test context exists.</exception>
+        public TestContext<TClass> And => (ExceptionContext?.TestContext ?? SuccessContext?.TestContext)
+                                  ?? throw new InvalidOperationException("No valid test context.");
 
-        public TestRunner<T> Should => new(this);
+        /// <summary>
+        /// The chaining API call to start the test runner.
+        /// </summary>
+        public TestRunner<TClass> Should => new(this);
     }
 }

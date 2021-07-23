@@ -2,7 +2,7 @@
 
 namespace Fluent.ConstructorAssertions.TestCases
 {
-    public abstract class TestCase<T> where T : class
+    internal abstract class TestCase<T> where T : class
     {
         private readonly object?[] _arguments;
         private readonly string? _because;

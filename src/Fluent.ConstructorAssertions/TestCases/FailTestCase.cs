@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Fluent.ConstructorAssertions.TestCases
 {
-    public class FailTestCase<T> : TestCase<T> where T : class
+    internal class FailTestCase<T> : TestCase<T> where T : class
     {
         private readonly Type _exceptionType;
 
