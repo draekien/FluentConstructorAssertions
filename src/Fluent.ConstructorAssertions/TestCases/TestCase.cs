@@ -5,14 +5,15 @@ namespace Fluent.ConstructorAssertions.TestCases
     internal abstract class TestCase<T> where T : class
     {
         private readonly object?[] _arguments;
-        private readonly string? _because;
         private readonly ConstructorInfo _constructor;
+        protected readonly string? ExpectedExceptionMessage;
 
-        protected TestCase(ConstructorInfo constructor, string? because, object?[] args)
+        protected TestCase(ConstructorInfo constructor, string? expectedExceptionMessage, object?[] args)
         {
             _constructor = constructor;
-            _because = because;
             _arguments = args;
+
+            ExpectedExceptionMessage = expectedExceptionMessage;
         }
 
         protected T InvokeConstructor()
@@ -29,9 +30,9 @@ namespace Fluent.ConstructorAssertions.TestCases
 
         protected string Fail(string message)
         {
-            return string.IsNullOrWhiteSpace(_because)
+            return string.IsNullOrWhiteSpace(ExpectedExceptionMessage)
                 ? $"Test failed: {message}"
-                : $"Test failed ({_because}): {message}";
+                : $"Test failed ({ExpectedExceptionMessage}): {message}";
         }
 
         protected string Success()

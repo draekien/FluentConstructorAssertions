@@ -14,7 +14,7 @@ namespace Fluent.ConstructorAssertions.Contexts
         internal ExceptionContext<TClass>? ExceptionContext { get; }
         internal SuccessContext<TClass>? SuccessContext { get; }
 
-        internal ConstructorArgumentContext(ExpectedResultContext<TClass> expectedResultContext, params object?[] args)
+        internal ConstructorArgumentContext(ExpectedResultContext<TClass> expectedResultContext, object?[] args)
         {
             switch (expectedResultContext)
             {
@@ -24,7 +24,7 @@ namespace Fluent.ConstructorAssertions.Contexts
 
                     TestCase<TClass> testCase = new FailTestCase<TClass>(
                         exceptionContext.TestContext.Constructor,
-                        exceptionContext.Because,
+                        exceptionContext.ExpectedMessage,
                         exceptionContext.ExceptionType,
                         args
                     );

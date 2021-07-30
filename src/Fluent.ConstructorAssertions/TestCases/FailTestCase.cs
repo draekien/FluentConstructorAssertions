@@ -10,11 +10,11 @@ namespace Fluent.ConstructorAssertions.TestCases
         /// <inheritdoc />
         internal FailTestCase(
             ConstructorInfo constructor,
-            string? because,
+            string? expectedExceptionMessage,
             Type exceptionType,
             params object?[] args
         )
-            : base(constructor, because, args)
+            : base(constructor, expectedExceptionMessage, args)
         {
             _exceptionType = exceptionType;
         }
@@ -25,17 +25,20 @@ namespace Fluent.ConstructorAssertions.TestCases
             try
             {
                 InvokeConstructor();
-                return Fail($"{_exceptionType.Name} not thrown when expected.");
+                return Fail($"\"{_exceptionType.Name}\" not thrown when expected.");
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex.GetType() != _exceptionType)
             {
-                if (ex.GetType() != _exceptionType)
-                {
-                    return Fail($"{ex.GetType().Name} thrown when {_exceptionType.Name} was expected.");
-                }
+                return Fail($"\"{ex.GetType().Name}\" thrown when \"{_exceptionType.Name}\" was expected.");
             }
-
-            return Success();
+            catch (Exception ex) when (!string.IsNullOrWhiteSpace(ExpectedExceptionMessage) && !ex.Message.Equals(ExpectedExceptionMessage))
+            {
+                return Fail($"Expected \"{ExpectedExceptionMessage}\" but instead received \"{ex.Message}\".");
+            }
+            catch (Exception)
+            {
+                return Success();
+            }
         }
     }
 }

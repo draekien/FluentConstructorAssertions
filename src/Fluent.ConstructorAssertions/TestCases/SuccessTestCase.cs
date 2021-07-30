@@ -6,8 +6,8 @@ namespace Fluent.ConstructorAssertions.TestCases
     internal class SuccessTestCase<T> : TestCase<T> where T : class
     {
         /// <inheritdoc />
-        internal SuccessTestCase(ConstructorInfo constructor, string? because, object?[] args)
-            : base(constructor, because, args) { }
+        internal SuccessTestCase(ConstructorInfo constructor, string? expectedExceptionMessage, object?[] args)
+            : base(constructor, expectedExceptionMessage, args) { }
 
         /// <inheritdoc />
         public override string Execute()

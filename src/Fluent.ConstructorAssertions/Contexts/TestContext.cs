@@ -22,13 +22,14 @@ namespace Fluent.ConstructorAssertions.Contexts
 
         /// <summary>
         /// Begins construction of a test case that asserts an exception of type TException will be thrown.
+        /// Specify an expected message if you want to catch a specific exception message, and not just the type of exception thrown.
         /// </summary>
-        /// <param name="because">The reason the exception should be thrown.</param>
+        /// <param name="expectedMessage">The expected exception message.</param>
         /// <typeparam name="TException">The exception type.</typeparam>
         /// <returns>A new <see cref="ExceptionContext{TClass}"/> for TClass.</returns>
-        public ExceptionContext<TClass> Throws<TException>(string? because = default)
+        public ExceptionContext<TClass> Throws<TException>(string? expectedMessage = default)
         {
-            return new(this, typeof(TException), because);
+            return new(this, typeof(TException), expectedMessage);
         }
 
         /// <summary>
