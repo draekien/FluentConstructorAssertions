@@ -70,9 +70,9 @@ public void GivenNullArgs_WhenInstantiatingClass_ThenThrowArgumentNullException(
 
   ForConstructorOf<MyClass>
     .WithArgTypes(typeof(IMediator), typeof(ILogger<MyClass>))
-    .Throws<ArgumentNullException>("Null mediator should throw exception")
+    .Throws<ArgumentNullException>("Value cannot be null. (Parameter 'mediator')")
     .ForArgs(null, logger)
-    .And.Throws<ArgumentNullException>("Null logger should throw exception")
+    .And.Throws<ArgumentNullException>("Value cannot be null. (Parameter 'logger')")
     .ForArgs(mediator, null)
     .And.Succeeds("No exception should be thrown")
     .ForArgs(mediator, logger)
