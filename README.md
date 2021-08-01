@@ -51,7 +51,7 @@ public void GivenNullIMediator_WhenInstantiatingClass_ThenThrowArgumentNullExcep
 {
   ForConstructorOf<MyClass>
     .WithArgTypes(typeof(IMediator), typeof(ILogger<MyClass>))
-    .Throws<ArgumentNullException>("Null mediator should throw exception")
+    .Throws<ArgumentNullException>("Value cannot be null. (Parameter 'mediator')")
     .ForArgs(null, Substitute.For<ILogger<MyClass>>())
     .Should.BeTrue();
 }
